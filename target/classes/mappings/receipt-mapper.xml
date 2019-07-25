@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hfhj.mapper.ReceiptMapper">
+	<!--mybatis ehcache缓存配置 -->
+	<!-- 以下两个<cache>标签二选一,第一个可以输出日志,第二个不输出日志 <cache type="org.mybatis.caches.ehcache.LoggingEhcache" 
+		/> -->
+	<!-- <cache type="org.mybatis.caches.ehcache.EhcacheCache"/> -->
+	<!-- 以下与实体类的中字段一致 -->
+	<sql id="selectId">
+		id,
+		reredocumentid,
+		cid,
+		cplateid,
+		coname,
+		rechamberlain,
+		retimeofreceipt,
+		reisreceive,
+		restarttime
+		reendtime,
+		reaccount,
+		reremark,
+		button,
+		ismoney,
+	</sql>
+
+<!-- 	<select id="findUserPage" resultType="com.hfhj.entity.UserFormMap">
+		select
+		<include refid="selectId" />
+		from ly_user
+		where 1 = 1
+		<if test="accountName != null and accountName != ''">
+		and accountName like '%${accountName}%'
+		</if>
+		<if test="column != null">
+          order by ${column} ${sort}
+        </if>
+	</select> -->
+	
+	<select id="findRecriptByTime" resultType="com.hfhj.entity.ReceiptFormMap" parameterType="string">
+		select *
+		 from receipt
+		 where retimeofreceipt like '${_parameter}%'
+	</select>
+	
+	<select id="findRecriptByTAM" resultType="com.hfhj.entity.ReceiptFormMap" parameterType="string">
+		select *
+		 from receipt
+		 where retimeofreceipt like '${_parameter}%' and ismoney = 0
+	</select>
+	
+</mapper>
